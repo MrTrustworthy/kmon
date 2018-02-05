@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My first Vue app</title>
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div id="list-connectors">
+    <p> Connectors </p>
+    <ul>
+      <li v-for="(details, name) in connectorData">
+        <h3>{{ details.status.type }}-connector "{{ name }}" </h3>
+        <h4>Status:</h4>
+        <p>{{ details.status.connector.state }}</p>
+        <p v-for="taskStat in details.status.tasks">Id: {{ taskStat.id }} is {{ taskStat.state }}</p>
+
+        <form method="PUT" action="{{ details.endpoint }}/{{ name }}/pause">
+          <button type="submit">Pause</button>
+        </form>
+
+        <form method="PUT" action="{{ details.endpoint }}/{{ name }}/resume">
+          <button type="submit">Resume</button>
+        </form>
+
+        <form method="POST" action="{{ details.endpoint }}/{{ name }}/restart">
+          <button type="submit">Restart</button>
+        </form>
+
+        <form method="DELETE" action="{{ details.endpoint }}/{{ name }}/">
+          <button type="submit">Delete</button>
+        </form>
+
+        <h4> Configuration </h4>
+        <p> {{ details.detail.config }}
+      </li>
+    </ul>
+  </div>
+
+  <script src="overview.js"></script>
+</body>
+
+</html>
